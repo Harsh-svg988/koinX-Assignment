@@ -13,6 +13,8 @@ import Sentiment from './Sentiment';
 import CryptoDashboard from './CryptoDashboard';
 import AboutBitcoin from './AboutBitcoin';
 import Tokenomics from './Tokenomics';
+import TeamSection from './TeamSection';
+import PieChartDonut from '../components/PieChartDonut';
 
 const CryptoPage = () => {
   const { coinId = 'bitcoin' } = useParams();
@@ -68,6 +70,8 @@ const CryptoPage = () => {
             <CryptoDashboard/>
             <AboutBitcoin/>
             <Tokenomics/>
+            <TeamSection/>
+            
           </div>
           
           <div className="lg:col-span-1 space-y-6">

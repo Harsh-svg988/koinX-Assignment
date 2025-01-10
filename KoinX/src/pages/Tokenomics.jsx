@@ -1,16 +1,15 @@
 import React from "react";
 
 const Tokenomics = () => {
+    const data = [
+        { label: 'Crowdsale investors', percentage: 80, color: '#3B82F6' },
+        { label: 'Foundation', percentage: 20, color: '#FB923C' }
+      ];
   return (
     <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-sm border border-gray-200">
       {/* Header Section */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Tokenomics</h2>
-        <div className="flex -space-x-2">
-          <span className="bg-blue-500 text-white px-2 py-1 rounded">A</span>
-          <span className="bg-purple-500 text-white px-2 py-1 rounded">Z</span>
-          <span className="bg-red-500 text-white px-2 py-1 rounded">H</span>
-        </div>
       </div>
 
       {/* Content Section */}
@@ -20,35 +19,56 @@ const Tokenomics = () => {
           <div className="flex flex-col md:flex-row items-center md:gap-10">
             {/* Pie Chart */}
             <div className="relative w-64 h-64">
-              <svg viewBox="0 0 32 32" className="w-full h-full">
-                {/* Crowdsale Investors - 80% */}
-                <circle
-                  r="16"
-                  cx="16"
-                  cy="16"
-                  fill="transparent"
-                  stroke="blue"
-                  strokeWidth="32"
-                  strokeDasharray="80 20"
-                  strokeDashoffset="0"
-                />
-                {/* Foundation - 20% */}
-                <circle
-                  r="16"
-                  cx="16"
-                  cy="16"
-                  fill="transparent"
-                  stroke="orange"
-                  strokeWidth="32"
-                  strokeDasharray="20 80"
-                  strokeDashoffset="-80"
-                />
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-lg font-bold text-gray-700">100%</span>
-              </div>
-            </div>
+        <svg 
+          viewBox="0 0 120 120"
+          className="w-full h-full -rotate-90"
+        >
+          {data.map((item, index) => {
+            // Calculate the start position for each segment
+            const startAngle = data
+              .slice(0, index)
+              .reduce((sum, d) => sum + (d.percentage / 100) * 360, 0);
+            
+            // Convert percentage to SVG arc parameters
+            const angle = (item.percentage / 100) * 360;
+            const radius = 40;
+            const centerX = 60;
+            const centerY = 60;
+            
+            // Calculate end point of arc
+            const endAngle = startAngle + angle;
+            const startRadian = (startAngle * Math.PI) / 180;
+            const endRadian = (endAngle * Math.PI) / 180;
+            
+            // Calculate points
+            const x1 = centerX + radius * Math.cos(startRadian);
+            const y1 = centerY + radius * Math.sin(startRadian);
+            const x2 = centerX + radius * Math.cos(endRadian);
+            const y2 = centerY + radius * Math.sin(endRadian);
+            
+            // Determine if the arc should be drawn the long way around
+            const largeArcFlag = angle > 180 ? 1 : 0;
+            
+            // Create the SVG path
+            const path = [
+              `M ${centerX + (radius * Math.cos(startRadian))} ${centerY + (radius * Math.sin(startRadian))}`,
+              `A ${radius} ${radius} 0 ${largeArcFlag} 1 ${centerX + (radius * Math.cos(endRadian))} ${centerY + (radius * Math.sin(endRadian))}`,
+              `L ${centerX + ((radius - 20) * Math.cos(endRadian))} ${centerY + ((radius - 20) * Math.sin(endRadian))}`,
+              `A ${radius - 20} ${radius - 20} 0 ${largeArcFlag} 0 ${centerX + ((radius - 20) * Math.cos(startRadian))} ${centerY + ((radius - 20) * Math.sin(startRadian))}`,
+              'Z'
+            ].join(' ');
 
+            return (
+              <path
+                key={item.label}
+                d={path}
+                fill={item.color}
+                className="transition-all duration-300"
+              />
+            );
+          })}
+        </svg>
+      </div>
             {/* Legend */}
             <div className="space-y-4">
               <div className="flex items-center gap-4">

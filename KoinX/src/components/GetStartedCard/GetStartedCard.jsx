@@ -10,7 +10,7 @@ const GetStartedCard = () => {
         With our range of features that you can equip for free, KoinX allows you to be more educated and aware of your tax reports.
       </p>
       <img
-        src="/api/placeholder/180/180"
+        src="https://wpusermanager.com/content/uploads/2020/09/mailchimp-post.jpg"
         alt="KoinX Features"
         className="mx-auto mb-6"
       />
