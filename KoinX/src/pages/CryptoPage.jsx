@@ -8,6 +8,11 @@ import TabPanel from '../components/TabPanel/TabPanel';
 import GetStartedCard from '../components/GetStartedCard/GetStartedCard';
 import TrendingCoins from '../components/TrendingCoins/TrendingCoins';
 import YouMayLike from '../components/YouMayLike/YouMayLike';
+import Performance from './Performance';
+import Sentiment from './Sentiment';
+import CryptoDashboard from './CryptoDashboard';
+import AboutBitcoin from './AboutBitcoin';
+import Tokenomics from './Tokenomics';
 
 const CryptoPage = () => {
   const { coinId = 'bitcoin' } = useParams();
@@ -58,6 +63,11 @@ const CryptoPage = () => {
             <CryptoHeader data={cryptoData} coinId={coinId} />
             <TradingViewChart symbol={coinId.toUpperCase()} />
             <TabPanel />
+            {/* <Performance/>
+            <Sentiment/> */}
+            <CryptoDashboard/>
+            <AboutBitcoin/>
+            <Tokenomics/>
           </div>
           
           <div className="lg:col-span-1 space-y-6">
